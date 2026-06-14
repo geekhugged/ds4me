@@ -10,6 +10,7 @@
 - `pages/mlops.html` — 2. MLOps.
 - `pages/data-product.html` — 3. Data Product.
 - `pages/ml-architect.html` — 4. ML Architect.
+- `pages/experiment-design.html` — 5. Дизайн экспериментов.
 - `pages/assets/` — общие стили (`style.css`), скрипт аккордеона (`accordion.js`)
   и шаблон темы (`topic-template.html`).
 - `streamlit_app/` — интерактивные симуляции на Streamlit, дополняющие
@@ -26,7 +27,7 @@
 Откройте `pages/index.html` в браузере и переходите на нужную тематическую
 страницу. Чтобы получить новую тему, запустите соответствующего агента
 (`ml-theory-agent`, `deep-learning-agent`, `mlops-agent`,
-`data-product-agent`, `ml-architect-agent`) — он предложит варианты тем и
+`data-product-agent`, `ml-architect-agent`, `experiment-design-agent`) — он предложит варианты тем и
 после вашего согласия добавит материал на страницу и симуляцию в
 Streamlit-приложение.
 
