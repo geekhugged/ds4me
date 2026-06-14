@@ -58,19 +58,27 @@ main {
 }
 
 .site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
   color: var(--text-muted);
   text-decoration: none;
   font-size: 0.85rem;
-  padding: 4px 12px;
+  padding: 6px 14px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .site-nav a:hover,
-.site-nav a.current {
+.site-nav a.current,
+.site-nav a:active,
+.site-nav a:focus-visible {
   color: var(--text);
   border-color: var(--accent);
+  background: var(--surface-2);
 }
 
 /* Accordion */
@@ -97,9 +105,13 @@ main {
   align-items: center;
   gap: 12px;
   transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.accordion-header:hover {
+.accordion-header:hover,
+.accordion-header:active,
+.accordion-header:focus-visible {
   background: var(--surface-2);
 }
 
@@ -181,12 +193,22 @@ main {
   background: var(--surface);
   color: var(--text);
   text-decoration: none;
-  transition: transform 0.15s, border-color 0.15s;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.agent-card:hover {
+.agent-card:hover,
+.agent-card:focus-visible {
   border-color: var(--accent);
   transform: translateY(-2px);
+}
+
+.agent-card:active {
+  border-color: var(--accent);
+  background: var(--surface-2);
+  transform: translateY(0);
 }
 
 .agent-card h2 {
