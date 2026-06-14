@@ -196,6 +196,38 @@ main {
   padding: 8px 0;
 }
 
+/* Call-to-action button */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: var(--shadow-1);
+  transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.cta-button:hover,
+.cta-button:focus-visible {
+  background: var(--accent-2);
+  box-shadow: var(--shadow-2);
+  transform: translateY(-1px);
+}
+
+.cta-button:active {
+  background: var(--accent-2);
+  box-shadow: var(--shadow-1);
+  transform: translateY(0);
+}
+
 /* Index page cards */
 .agent-grid {
   display: grid;
