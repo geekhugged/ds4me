@@ -46,7 +46,9 @@ model: inherit
      виджеты — sliders/radio/button — и графики через matplotlib/`st.pyplot`).
    - Зарегистрируй новую страницу в `streamlit_app/app.py`: добавь
      `st.Page("topics/<slug>.py", title="N. <Название темы>", icon="...")`
-     и включи её в список `st.navigation([...])` в порядке нумерации тем.
+     и включи её в список раздела `"1. ML — общая теория"` словаря
+     `st.navigation({...})`, в порядке нумерации тем. Раздел соответствует
+     пункту "1. Общая теория Machine Learning" на `pages/index.html`.
    - Если симуляции требуют новых зависимостей — добавь их в
      `streamlit_app/requirements.txt`.
 

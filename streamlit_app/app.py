@@ -55,18 +55,22 @@ causal_dag = st.Page(
 )
 
 pg = st.navigation(
-    [
-        home,
-        problem_setup,
-        linear_regression,
-        regression_metrics,
-        bias_variance,
-        logistic_regression,
-        hypothesis_testing,
-        confidence_intervals,
-        ab_test_design,
-        multiple_testing,
-        causal_dag,
-    ]
+    {
+        "Главная": [home],
+        "1. ML — общая теория": [
+            problem_setup,
+            linear_regression,
+            regression_metrics,
+            bias_variance,
+            logistic_regression,
+        ],
+        "5. Дизайн экспериментов": [
+            hypothesis_testing,
+            confidence_intervals,
+            ab_test_design,
+            multiple_testing,
+            causal_dag,
+        ],
+    }
 )
 pg.run()
