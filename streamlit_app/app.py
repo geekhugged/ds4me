@@ -53,6 +53,31 @@ causal_dag = st.Page(
     title="10. DAG, конфаундеры и селекшн-bias",
     icon="🕸️",
 )
+leetcode_two_sum = st.Page(
+    "topics/leetcode_two_sum.py",
+    title="Two Sum",
+    icon="🔢",
+)
+leetcode_longest_substring = st.Page(
+    "topics/leetcode_longest_substring.py",
+    title="Longest Substring Without Repeating Characters",
+    icon="🪟",
+)
+leetcode_valid_parentheses = st.Page(
+    "topics/leetcode_valid_parentheses.py",
+    title="Valid Parentheses",
+    icon="🧱",
+)
+leetcode_number_of_islands = st.Page(
+    "topics/leetcode_number_of_islands.py",
+    title="Number of Islands",
+    icon="🏝️",
+)
+leetcode_merge_intervals = st.Page(
+    "topics/leetcode_merge_intervals.py",
+    title="Merge Intervals",
+    icon="📏",
+)
 
 pg = st.navigation(
     {
@@ -70,6 +95,13 @@ pg = st.navigation(
             ab_test_design,
             multiple_testing,
             causal_dag,
+        ],
+        "6. LeetCode": [
+            leetcode_two_sum,
+            leetcode_longest_substring,
+            leetcode_valid_parentheses,
+            leetcode_number_of_islands,
+            leetcode_merge_intervals,
         ],
     }
 )
