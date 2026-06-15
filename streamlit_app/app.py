@@ -53,6 +53,31 @@ causal_dag = st.Page(
     title="10. DAG, конфаундеры и селекшн-bias",
     icon="🕸️",
 )
+ml_lifecycle = st.Page(
+    "topics/ml_lifecycle.py",
+    title="1. Жизненный цикл ML-проекта",
+    icon="🔄",
+)
+reproducibility = st.Page(
+    "topics/reproducibility.py",
+    title="2. Reproducibility",
+    icon="♻️",
+)
+data_model_versioning = st.Page(
+    "topics/data_model_versioning.py",
+    title="3. Версионирование данных и моделей",
+    icon="🗂️",
+)
+experiment_tracking = st.Page(
+    "topics/experiment_tracking.py",
+    title="4. Эксперимент-трекинг",
+    icon="📊",
+)
+containerization = st.Page(
+    "topics/containerization.py",
+    title="5. Контейнеризация и Kubernetes",
+    icon="🐳",
+)
 leetcode_two_sum = st.Page(
     "topics/leetcode_two_sum.py",
     title="Two Sum",
@@ -88,6 +113,13 @@ pg = st.navigation(
             regression_metrics,
             bias_variance,
             logistic_regression,
+        ],
+        "2. MLOps": [
+            ml_lifecycle,
+            reproducibility,
+            data_model_versioning,
+            experiment_tracking,
+            containerization,
         ],
         "5. Дизайн экспериментов": [
             hypothesis_testing,
