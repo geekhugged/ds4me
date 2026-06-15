@@ -108,6 +108,31 @@ leetcode_merge_intervals = st.Page(
     title="Merge Intervals",
     icon="📏",
 )
+mlsd_video_recsys = st.Page(
+    "topics/mlsd_video_recsys.py",
+    title="1. Видео-рекомендации (YouTube-style)",
+    icon="📺",
+)
+mlsd_ad_ctr = st.Page(
+    "topics/mlsd_ad_ctr.py",
+    title="2. Предсказание CTR для рекламы",
+    icon="📢",
+)
+mlsd_feed_ranking = st.Page(
+    "topics/mlsd_feed_ranking.py",
+    title="3. Ранжирование ленты соцсети",
+    icon="📰",
+)
+mlsd_fraud_detection = st.Page(
+    "topics/mlsd_fraud_detection.py",
+    title="4. Детекция фрода в транзакциях",
+    icon="🛡️",
+)
+mlsd_visual_search = st.Page(
+    "topics/mlsd_visual_search.py",
+    title="5. Визуальный поиск похожих товаров",
+    icon="🔍",
+)
 
 pg = st.navigation(
     {
@@ -140,6 +165,13 @@ pg = st.navigation(
             leetcode_valid_parentheses,
             leetcode_number_of_islands,
             leetcode_merge_intervals,
+        ],
+        "7. ML System Design": [
+            mlsd_video_recsys,
+            mlsd_ad_ctr,
+            mlsd_feed_ranking,
+            mlsd_fraud_detection,
+            mlsd_visual_search,
         ],
     }
 )
