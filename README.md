@@ -11,8 +11,13 @@
 - `pages/data-product.html` — 3. Data Product.
 - `pages/ml-architect.html` — 4. ML Architect.
 - `pages/experiment-design.html` — 5. Дизайн экспериментов.
-- `pages/assets/` — общие стили (`style.css`), скрипт аккордеона (`accordion.js`)
-  и шаблон темы (`topic-template.html`).
+- `pages/leetcode.html` — 6. LeetCode (задачи по алгоритмам и структурам данных).
+- `pages/ml-system-design-interview.html` — 7. ML System Design (кейсы для
+  интервью по проектированию ML-систем).
+- `pages/assets/` — общие стили (`style.css`), скрипт аккордеона (`accordion.js`),
+  шаблон темы (`topic-template.html`) и шаблон задачи/кейса
+  (`problem-template.html`, для страниц LeetCode и ML System Design — пара
+  независимых аккордеонов "Задание"/"Решение").
 - `streamlit_app/` — интерактивные симуляции на Streamlit, дополняющие
   теоретические страницы. Каждая тема из `pages/*.html` имеет свою страницу
   в `streamlit_app/topics/`, подключённую через навигацию в `app.py`.
@@ -27,8 +32,9 @@
 Откройте `pages/index.html` в браузере и переходите на нужную тематическую
 страницу. Чтобы получить новую тему, запустите соответствующего агента
 (`ml-theory-agent`, `deep-learning-agent`, `mlops-agent`,
-`data-product-agent`, `ml-architect-agent`, `experiment-design-agent`) — он предложит варианты тем и
-после вашего согласия добавит материал на страницу и симуляцию в
+`data-product-agent`, `ml-architect-agent`, `experiment-design-agent`,
+`leetcode-agent`, `ml-system-design-interview-agent`) — он предложит варианты
+тем/задач и после вашего согласия добавит материал на страницу и симуляцию в
 Streamlit-приложение.
 
 ## Streamlit-приложение с симуляциями

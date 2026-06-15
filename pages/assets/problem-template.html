@@ -1,0 +1,68 @@
+<!--
+  Шаблон секции задачи (две независимые секции аккордеона: "Задание" и "Решение").
+  Каждый агент добавляет новый блок .problem-group внутрь
+  <section class="accordion" id="topics"> ... </section>
+  на своей странице, перед закрывающим тегом </section>.
+
+  Если в секции "topics" присутствует <p class="empty-state">...</p> —
+  удалите его при добавлении первой задачи.
+
+  Задание и решение — это ДВА отдельных .accordion-item внутри одного
+  .problem-group, каждый со своим .accordion-header / .accordion-body, и
+  раскрываются независимо друг от друга (механика та же, что у обычных тем).
+
+  Код пишется в <pre><code>...</code></pre>. Обязательно экранируйте
+  символы <, >, & внутри кода как &lt;, &gt;, &amp;.
+
+  Формулы (если нужны) — в синтаксисе KaTeX:
+    - инлайн: $O(n \log n)$
+    - блочные: $$ T(n) = 2T(n/2) + O(n) $$
+-->
+<div class="problem-group">
+  <h3 class="problem-title">
+    1. Название задачи
+    <span class="problem-meta difficulty-medium">Medium</span>
+  </h3>
+
+  <div class="accordion-item">
+    <button class="accordion-header">📋 Задание</button>
+    <div class="accordion-body">
+      <p>
+        Условие задачи: подробное описание, что дано на входе и что нужно
+        вернуть на выходе.
+      </p>
+      <p><strong>Пример:</strong></p>
+      <pre><code>Вход: ...
+Выход: ...</code></pre>
+      <p><strong>Ограничения:</strong></p>
+      <ul>
+        <li>например, $1 \le n \le 10^5$</li>
+      </ul>
+      <p>
+        Темы/теги: массивы, хеш-таблицы, ...
+      </p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <button class="accordion-header">✅ Решение</button>
+    <div class="accordion-body">
+      <h3>Подход</h3>
+      <p>
+        Объяснение идеи решения: от наивного варианта к оптимальному, почему
+        он работает, ключевые инсайты.
+      </p>
+
+      <h3>Код</h3>
+      <pre><code>def solve(...):
+    ...
+</code></pre>
+
+      <h3>Сложность</h3>
+      <p>
+        Время: $O(n)$, память: $O(n)$ — с коротким объяснением, откуда эти
+        оценки берутся.
+      </p>
+    </div>
+  </div>
+</div>
