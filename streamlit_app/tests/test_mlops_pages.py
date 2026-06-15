@@ -42,3 +42,25 @@ def test_containerization():
     at = AppTest.from_file(str(TOPICS_DIR / "containerization.py"))
     at.run()
     assert not at.exception
+
+
+def test_git_github():
+    at = AppTest.from_file(str(TOPICS_DIR / "git_github.py"))
+    at.run()
+    assert not at.exception
+
+    # клик по первой кнопке (git commit — добавляет коммит в граф)
+    at.button[0].click().run(timeout=60)
+    assert not at.exception
+
+    # выбрать ответ в тренажёре и проверить его
+    if len(at.radio) > 0:
+        at.radio[0].set_value(at.radio[0].options[0]).run(timeout=60)
+        assert not at.exception
+
+    # найти и кликнуть кнопку "Проверить ответ"
+    for b in at.button:
+        if b.label == "Проверить ответ":
+            b.click().run(timeout=60)
+            break
+    assert not at.exception

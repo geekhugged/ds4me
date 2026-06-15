@@ -78,6 +78,11 @@ containerization = st.Page(
     title="5. Контейнеризация и Kubernetes",
     icon="🐳",
 )
+git_github = st.Page(
+    "topics/git_github.py",
+    title="6. Git и GitHub",
+    icon="🔧",
+)
 leetcode_two_sum = st.Page(
     "topics/leetcode_two_sum.py",
     title="Two Sum",
@@ -120,6 +125,7 @@ pg = st.navigation(
             data_model_versioning,
             experiment_tracking,
             containerization,
+            git_github,
         ],
         "5. Дизайн экспериментов": [
             hypothesis_testing,
