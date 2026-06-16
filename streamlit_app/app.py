@@ -53,6 +53,31 @@ causal_dag = st.Page(
     title="10. DAG, конфаундеры и селекшн-bias",
     icon="🕸️",
 )
+dl_mlp = st.Page(
+    "topics/mlp.py",
+    title="1. Перцептрон и MLP",
+    icon="🧠",
+)
+dl_activations = st.Page(
+    "topics/activation_functions.py",
+    title="2. Функции активации",
+    icon="⚡",
+)
+dl_backprop = st.Page(
+    "topics/backpropagation.py",
+    title="3. Backpropagation",
+    icon="🔄",
+)
+dl_losses = st.Page(
+    "topics/loss_functions.py",
+    title="4. Функции потерь",
+    icon="📉",
+)
+dl_optimizers = st.Page(
+    "topics/optimizers.py",
+    title="5. Оптимизаторы",
+    icon="🚀",
+)
 ml_lifecycle = st.Page(
     "topics/ml_lifecycle.py",
     title="1. Жизненный цикл ML-проекта",
@@ -143,6 +168,13 @@ pg = st.navigation(
             regression_metrics,
             bias_variance,
             logistic_regression,
+        ],
+        "1.1 Deep Learning": [
+            dl_mlp,
+            dl_activations,
+            dl_backprop,
+            dl_losses,
+            dl_optimizers,
         ],
         "2. MLOps": [
             ml_lifecycle,

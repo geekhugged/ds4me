@@ -35,10 +35,535 @@
   </header>
   <main>
     <section class="accordion" id="topics">
-      <p class="empty-state">
-        Темы пока не добавлены. Запустите агента «Deep Learning», чтобы получить
-        предложения по темам для прокачки.
-      </p>
+
+      <div class="accordion-item">
+        <button class="accordion-header">1. Перцептрон и многослойные нейронные сети (MLP)</button>
+        <div class="accordion-body">
+          <h3>Теория</h3>
+          <p>
+            <strong>Перцептрон</strong> — простейшая модель нейрона, предложенная Розенблаттом в 1958 году.
+            Он принимает вектор входных признаков $\mathbf{x} \in \mathbb{R}^n$, вычисляет взвешенную сумму
+            и пропускает результат через пороговую функцию. Перцептрон способен разделить только линейно
+            разделимые классы, что является его главным ограничением.
+          </p>
+          <p>
+            <strong>Многослойный перцептрон (MLP, Multilayer Perceptron)</strong> — это направленный
+            граф из нейронов, организованных в слои: входной слой, один или несколько скрытых слоёв
+            и выходной слой. Каждый нейрон скрытого/выходного слоя соединён со всеми нейронами
+            предыдущего слоя (полносвязный, или «dense» слой). Такая архитектура называется
+            <em>feedforward</em>-сетью, потому что сигнал распространяется только вперёд — от входа
+            к выходу, без обратных петель.
+          </p>
+          <p>
+            Вычисление одного слоя можно представить как аффинное преобразование, за которым следует
+            поэлементная нелинейная функция активации. Именно нелинейность позволяет сети аппроксимировать
+            сложные функции: без неё несколько линейных слоёв эквивалентны одному линейному преобразованию.
+          </p>
+          <p>
+            Согласно <strong>универсальной теореме аппроксимации</strong> (Cybenko, 1989; Hornik, 1991),
+            MLP с одним достаточно широким скрытым слоем и непрерывной нелинейной активацией может
+            аппроксимировать любую непрерывную функцию на компакте с произвольной точностью. На практике,
+            однако, глубина (много слоёв) оказывается эффективнее ширины (мало слоёв, но очень широких):
+            более глубокие сети строят иерархические представления признаков и требуют экспоненциально
+            меньше параметров для тех же задач.
+          </p>
+          <p><strong>Типичные ошибки и приёмы:</strong></p>
+          <ul>
+            <li>Слишком большая сеть без регуляризации — немедленное переобучение.</li>
+            <li>Отсутствие нормализации входных данных ведёт к медленной и нестабильной сходимости.</li>
+            <li>Неправильная инициализация весов — затухающие или взрывающиеся градиенты с первых шагов.</li>
+            <li>Правило эмпирического подбора: начинать с 1–2 скрытых слоёв, увеличивать глубину только
+              при доказанном дефиците ёмкости.</li>
+          </ul>
+
+          <h3>Формулы</h3>
+          <p>
+            Пусть сеть имеет $L$ слоёв. Обозначим параметры $l$-го слоя: матрица весов
+            $\mathbf{W}^{[l]} \in \mathbb{R}^{n_l \times n_{l-1}}$ и вектор смещений
+            $\mathbf{b}^{[l]} \in \mathbb{R}^{n_l}$, где $n_l$ — число нейронов в слое $l$.
+          </p>
+          <p>Прямой проход (forward pass) через слой $l$:</p>
+          $$\mathbf{z}^{[l]} = \mathbf{W}^{[l]}\,\mathbf{a}^{[l-1]} + \mathbf{b}^{[l]}$$
+          $$\mathbf{a}^{[l]} = g^{[l]}\!\left(\mathbf{z}^{[l]}\right)$$
+          <p>
+            где $\mathbf{a}^{[l-1]}$ — активации предыдущего слоя ($\mathbf{a}^{[0]} = \mathbf{x}$ — вход),
+            $\mathbf{z}^{[l]}$ — «пре-активация» (линейная комбинация), $g^{[l]}(\cdot)$ — функция
+            активации слоя $l$, применяемая поэлементно.
+          </p>
+          <p>Выход сети для задачи регрессии:</p>
+          $$\hat{y} = \mathbf{a}^{[L]} = \mathbf{W}^{[L]}\,\mathbf{a}^{[L-1]} + \mathbf{b}^{[L]}$$
+          <p>
+            Суммарное число параметров сети: $\sum_{l=1}^{L} \left(n_l \cdot n_{l-1} + n_l\right)$.
+            Для сети 784→256→128→10 это $784 \cdot 256 + 256 + 256 \cdot 128 + 128 + 128 \cdot 10 + 10
+            = 234{,}762$ параметров.
+          </p>
+
+          <h3>Мануалы и материалы</h3>
+          <ul>
+            <li>
+              <a href="http://neuralnetworksanddeeplearning.com/" target="_blank" rel="noopener">
+                Neural Networks and Deep Learning — Michael Nielsen</a>
+              — бесплатная онлайн-книга, лучшее введение с нуля: перцептрон, MLP, backprop, визуализации.
+            </li>
+            <li>
+              <a href="https://www.deeplearningbook.org/" target="_blank" rel="noopener">
+                Deep Learning Book — Goodfellow, Bengio, Courville</a>
+              — глава 6 «Deep Feedforward Networks» — академически строгое изложение MLP.
+            </li>
+            <li>
+              <a href="https://cs231n.github.io/neural-networks-1/" target="_blank" rel="noopener">
+                CS231n: Neural Networks Part 1 — Stanford</a>
+              — конспект лекции про архитектуры нейросетей, схемы, советы по практике.
+            </li>
+            <li>
+              <a href="https://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html"
+                 target="_blank" rel="noopener">
+                PyTorch: Neural Networks Tutorial</a>
+              — официальный туториал: реализация MLP на PyTorch с нуля, код под каждым шагом.
+            </li>
+            <li>
+              <a href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank" rel="noopener">
+                3Blue1Brown: But what is a neural network? (YouTube)</a>
+              — визуальное объяснение MLP на примере MNIST, превосходная интуиция для начинающих.
+            </li>
+            <li>
+              <a href="https://playground.tensorflow.org/" target="_blank" rel="noopener">
+                TensorFlow Playground</a>
+              — интерактивная браузерная симуляция: стройте MLP, меняйте активации и наблюдайте обучение
+              в реальном времени.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header">2. Функции активации (Sigmoid, Tanh, ReLU, GELU, Softmax)</button>
+        <div class="accordion-body">
+          <h3>Теория</h3>
+          <p>
+            Функция активации $g(\cdot)$ — это поэлементная нелинейность, применяемая к пре-активации
+            нейрона. Без неё глубина сети бессмысленна: стек линейных слоёв эквивалентен одному
+            линейному. Выбор функции активации влияет на скорость обучения, риск затухающих
+            градиентов и выразительность модели.
+          </p>
+          <p>
+            <strong>Sigmoid</strong> $\sigma(z) = \tfrac{1}{1+e^{-z}}$ исторически использовался
+            как «базовая» нелинейность. Выходы лежат в $(0,1)$, что удобно для бинарной классификации
+            на выходном слое. Главный недостаток — <em>насыщение</em>: при $|z| \gg 1$ производная
+            стремится к 0, что ведёт к затуханию градиента в глубоких сетях. Кроме того, выходы
+            не центрированы вокруг 0, что замедляет сходимость.
+          </p>
+          <p>
+            <strong>Tanh</strong> $\tanh(z) = \tfrac{e^z - e^{-z}}{e^z + e^{-z}}$ устраняет проблему
+            нецентрированности: выходы в $(-1, 1)$. Однако проблема насыщения и затухания градиента
+            сохраняется.
+          </p>
+          <p>
+            <strong>ReLU</strong> (Rectified Linear Unit) $\text{ReLU}(z) = \max(0, z)$ произвёл
+            революцию в глубоком обучении. Для положительных аргументов производная равна 1, что
+            полностью устраняет затухание градиента в «живых» нейронах. Вычислительно крайне дёшев.
+            Недостаток — «мёртвые нейроны» (dying ReLU): если нейрон получает отрицательный вход
+            для всех примеров, его градиент всегда равен 0 и веса перестают обновляться.
+          </p>
+          <p>
+            <strong>Leaky ReLU</strong> и <strong>ELU</strong> — варианты ReLU, устраняющие проблему
+            мёртвых нейронов: $\text{LeakyReLU}(z) = \max(\alpha z, z)$ при малом $\alpha \approx 0.01$.
+          </p>
+          <p>
+            <strong>GELU</strong> (Gaussian Error Linear Unit) $\text{GELU}(z) = z \cdot \Phi(z)$,
+            где $\Phi$ — CDF стандартного нормального распределения. GELU используется в BERT,
+            GPT и других современных трансформерах. В отличие от ReLU, GELU является гладкой функцией
+            (дифференцируемой всюду), что может помогать оптимизации.
+          </p>
+          <p>
+            <strong>Softmax</strong> — функция для выходного слоя в задачах многоклассовой
+            классификации. В отличие от остальных активаций, Softmax работает не поэлементно,
+            а нормирует весь вектор, превращая произвольные числа в вероятностное распределение
+            (все значения положительны и суммируются в 1).
+          </p>
+          <p><strong>Практические советы:</strong></p>
+          <ul>
+            <li>Для скрытых слоёв: по умолчанию используйте ReLU; если есть dying neurons —
+              Leaky ReLU или ELU.</li>
+            <li>В трансформерах и BERT/GPT-подобных моделях: GELU.</li>
+            <li>Выходной слой бинарной классификации: Sigmoid.</li>
+            <li>Выходной слой многоклассовой классификации: Softmax.</li>
+            <li>Выходной слой регрессии: без активации (линейный выход).</li>
+          </ul>
+
+          <h3>Формулы</h3>
+          <p>Сигмоида и её производная:</p>
+          $$\sigma(z) = \frac{1}{1 + e^{-z}}, \qquad \sigma'(z) = \sigma(z)\,(1 - \sigma(z))$$
+          <p>Гиперболический тангенс и его производная:</p>
+          $$\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}, \qquad \tanh'(z) = 1 - \tanh^2(z)$$
+          <p>ReLU и его субградиент:</p>
+          $$\text{ReLU}(z) = \max(0, z), \qquad \frac{d}{dz}\text{ReLU}(z) = \mathbf{1}[z > 0]$$
+          <p>GELU (точная форма через функцию ошибок $\text{erf}$):</p>
+          $$\text{GELU}(z) = z \cdot \Phi(z) = \frac{z}{2}\left[1 + \text{erf}\!\left(\frac{z}{\sqrt{2}}\right)\right]$$
+          <p>Быстрое приближение GELU, используемое в коде:</p>
+          $$\text{GELU}(z) \approx 0.5\,z\left(1 + \tanh\!\left[\sqrt{\tfrac{2}{\pi}}\left(z + 0.044715\,z^3\right)\right]\right)$$
+          <p>Softmax для вектора $\mathbf{z} = (z_1, \ldots, z_K)$:</p>
+          $$\text{Softmax}(\mathbf{z})_k = \frac{e^{z_k}}{\sum_{j=1}^{K} e^{z_j}}, \quad k = 1,\ldots,K$$
+          <p>
+            На практике для численной стабильности вычитают максимум:
+            $\text{Softmax}(\mathbf{z})_k = \dfrac{e^{z_k - \max_j z_j}}{\sum_j e^{z_j - \max_j z_j}}$.
+          </p>
+
+          <h3>Мануалы и материалы</h3>
+          <ul>
+            <li>
+              <a href="https://cs231n.github.io/neural-networks-1/#actfun" target="_blank" rel="noopener">
+                CS231n: Activation Functions</a>
+              — раздел конспекта с графиками, плюсами и минусами каждой функции активации.
+            </li>
+            <li>
+              <a href="https://arxiv.org/abs/1606.08415" target="_blank" rel="noopener">
+                Hendrycks &amp; Gimpel, «Gaussian Error Linear Units» (GELU), 2016</a>
+              — оригинальная статья, предложившая GELU, используемый в BERT и GPT.
+            </li>
+            <li>
+              <a href="https://pytorch.org/docs/stable/nn.html#non-linear-activations-weighted-sum-nonlinearity"
+                 target="_blank" rel="noopener">
+                PyTorch Docs: Non-linear Activations</a>
+              — полный справочник всех функций активации в PyTorch с формулами.
+            </li>
+            <li>
+              <a href="https://www.deeplearningbook.org/contents/mlp.html" target="_blank" rel="noopener">
+                Deep Learning Book: Chapter 6.3 — Hidden Units</a>
+              — академический обзор функций активации и их свойств.
+            </li>
+            <li>
+              <a href="https://www.youtube.com/watch?v=NkOv_k7r6no" target="_blank" rel="noopener">
+                Andrej Karpathy: Let's build micrograd (YouTube)</a>
+              — пошаговое построение autograd-движка с нуля; активации реализуются «руками».
+            </li>
+            <li>
+              <a href="https://distill.pub/2019/activation-atlas/" target="_blank" rel="noopener">
+                Distill.pub: Activation Atlas</a>
+              — интерактивная визуализация того, что «видят» нейроны с разными активациями в CNN.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header">3. Backpropagation — прямое и обратное распространение ошибки</button>
+        <div class="accordion-body">
+          <h3>Теория</h3>
+          <p>
+            Backpropagation (обратное распространение ошибки) — алгоритм эффективного вычисления
+            градиента функции потерь по всем параметрам сети. Это не отдельный метод обучения, а
+            способ вычислить $\partial \mathcal{L}/\partial w$ для любого параметра $w$ с помощью
+            цепного правила дифференцирования. Обучение сети происходит путём применения этих
+            градиентов в алгоритме оптимизации (например, градиентный спуск).
+          </p>
+          <p>
+            Алгоритм состоит из двух фаз:
+          </p>
+          <ol>
+            <li>
+              <strong>Прямой проход (forward pass):</strong> вход $\mathbf{x}$ подаётся на вход сети,
+              последовательно вычисляются активации каждого слоя $\mathbf{z}^{[l]}$ и $\mathbf{a}^{[l]}$,
+              и в конце получается предсказание $\hat{y}$. Все промежуточные значения сохраняются
+              в памяти (это существенно влияет на потребление памяти при обучении).
+            </li>
+            <li>
+              <strong>Обратный проход (backward pass):</strong> вычисляется потеря $\mathcal{L}(\hat{y}, y)$,
+              затем градиент потери распространяется назад от выходного слоя к входному, используя
+              цепное правило. На каждом шаге вычисляется «ошибка» слоя $\boldsymbol{\delta}^{[l]}$
+              и градиенты по параметрам этого слоя.
+            </li>
+          </ol>
+          <p>
+            Математически, backpropagation — это частный случай алгоритма автоматического
+            дифференцирования в <em>обратном режиме</em> (reverse-mode autodiff). Современные
+            фреймворки (PyTorch, TensorFlow/JAX) реализуют его автоматически через построение
+            вычислительного графа.
+          </p>
+          <p>
+            <strong>Ключевая идея:</strong> вместо вычисления полного якобиана (что стоит $O(n^2)$
+            операций), обратный режим позволяет вычислить градиент скалярной функции по всем
+            параметрам за одну процедуру, стоимость которой сравнима с одним прямым проходом
+            — это делает обучение нейросетей вычислительно осуществимым.
+          </p>
+          <p><strong>Типичные проблемы:</strong></p>
+          <ul>
+            <li>
+              <strong>Затухающие градиенты</strong> (vanishing gradients): в глубоких сетях с сигмоидами
+              произведение малых производных в цепном правиле стремится к 0, градиенты ранних слоёв
+              практически исчезают. Решение: ReLU, skip-connections (ResNet), нормализация.
+            </li>
+            <li>
+              <strong>Взрывные градиенты</strong> (exploding gradients): произведение больших производных
+              ведёт к числовому переполнению. Решение: gradient clipping.
+            </li>
+            <li>
+              Неверная реализация backprop — проверяйте градиенты методом конечных разностей
+              (gradient checking): $\frac{\partial \mathcal{L}}{\partial \theta} \approx
+              \frac{\mathcal{L}(\theta+\varepsilon) - \mathcal{L}(\theta-\varepsilon)}{2\varepsilon}$.
+            </li>
+          </ul>
+
+          <h3>Формулы</h3>
+          <p>
+            Цепное правило для составной функции $\mathcal{L} = f(g(\theta))$:
+          </p>
+          $$\frac{\partial \mathcal{L}}{\partial \theta} = \frac{\partial \mathcal{L}}{\partial g} \cdot \frac{\partial g}{\partial \theta}$$
+          <p>
+            Обозначим «ошибку» $l$-го слоя (градиент потери по пре-активации):
+          </p>
+          $$\boldsymbol{\delta}^{[l]} = \frac{\partial \mathcal{L}}{\partial \mathbf{z}^{[l]}}$$
+          <p>
+            Рекуррентная формула для обратного прохода: ошибка слоя $l$ через ошибку слоя $l+1$:
+          </p>
+          $$\boldsymbol{\delta}^{[l]} = \left(\mathbf{W}^{[l+1]\top}\,\boldsymbol{\delta}^{[l+1]}\right) \odot g'^{[l]}\!\left(\mathbf{z}^{[l]}\right)$$
+          <p>
+            где $\odot$ — поэлементное (произведение Адамара), $g'^{[l]}$ — производная функции активации
+            слоя $l$. Для выходного слоя $L$:
+          </p>
+          $$\boldsymbol{\delta}^{[L]} = \frac{\partial \mathcal{L}}{\partial \mathbf{a}^{[L]}} \odot g'^{[L]}\!\left(\mathbf{z}^{[L]}\right)$$
+          <p>Градиенты по параметрам слоя $l$:</p>
+          $$\frac{\partial \mathcal{L}}{\partial \mathbf{W}^{[l]}} = \boldsymbol{\delta}^{[l]}\,\mathbf{a}^{[l-1]\top}, \qquad \frac{\partial \mathcal{L}}{\partial \mathbf{b}^{[l]}} = \boldsymbol{\delta}^{[l]}$$
+          <p>
+            Для мини-батча размера $m$ градиенты усредняются по примерам:
+            $\frac{\partial \mathcal{L}}{\partial \mathbf{W}^{[l]}} = \frac{1}{m}\,\boldsymbol{\Delta}^{[l]}\,\mathbf{A}^{[l-1]\top}$,
+            где $\boldsymbol{\Delta}^{[l]} \in \mathbb{R}^{n_l \times m}$ — матрица ошибок по всему батчу.
+          </p>
+
+          <h3>Мануалы и материалы</h3>
+          <ul>
+            <li>
+              <a href="http://neuralnetworksanddeeplearning.com/chap2.html" target="_blank" rel="noopener">
+                Nielsen: How the backpropagation algorithm works</a>
+              — лучшее пошаговое объяснение с выводом четырёх уравнений backprop.
+            </li>
+            <li>
+              <a href="https://cs231n.github.io/optimization-2/" target="_blank" rel="noopener">
+                CS231n: Backpropagation, Intuitions</a>
+              — объяснение backprop через вычислительные графы и интуицию «gate gradients».
+            </li>
+            <li>
+              <a href="https://www.youtube.com/watch?v=VMj-3S1tku0" target="_blank" rel="noopener">
+                Andrej Karpathy: The spelled-out intro to neural networks and backpropagation (YouTube)</a>
+              — 2.5-часовой разбор с реализацией micrograd с нуля.
+            </li>
+            <li>
+              <a href="https://colah.github.io/posts/2015-08-Backprop/" target="_blank" rel="noopener">
+                Colah's Blog: Calculus on Computational Graphs — Backpropagation</a>
+              — визуальное объяснение вычислительных графов и обратного прохода.
+            </li>
+            <li>
+              <a href="https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html"
+                 target="_blank" rel="noopener">
+                PyTorch Autograd Tutorial</a>
+              — как PyTorch строит граф вычислений и вызывает .backward().
+            </li>
+            <li>
+              <a href="https://arxiv.org/abs/1502.05767" target="_blank" rel="noopener">
+                Baydin et al., «Automatic Differentiation in ML: a Survey», 2018</a>
+              — обзор методов автодифференцирования (forward/reverse mode) и их реализаций в фреймворках.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header">4. Функции потерь (MSE, Cross-Entropy, KL-Divergence)</button>
+        <div class="accordion-body">
+          <h3>Теория</h3>
+          <p>
+            Функция потерь (loss function, или cost function) количественно измеряет расхождение между
+            предсказаниями модели и истинными значениями. Выбор функции потерь определяет, <em>что</em>
+            именно оптимизирует алгоритм обучения, и должен соответствовать природе задачи и
+            статистическим предположениям о данных.
+          </p>
+          <p>
+            <strong>MSE (Mean Squared Error)</strong> — среднеквадратичная ошибка, стандартная потеря
+            для задач регрессии. Математически эквивалентна максимизации правдоподобия при предположении,
+            что ошибки распределены нормально (гауссово). MSE сильно штрафует выбросы (ошибка возводится
+            в квадрат), что делает её чувствительной к шумным данным. Для устойчивости к выбросам
+            используют MAE (Mean Absolute Error) или Huber Loss.
+          </p>
+          <p>
+            <strong>Binary Cross-Entropy</strong> — функция потерь для бинарной классификации.
+            Получается как отрицательный логарифм правдоподобия (NLL) при предположении о
+            распределении Бернулли. Максимально штрафует уверенные неправильные предсказания
+            (например, $\hat{y} = 0.01$ при $y = 1$), что форсирует модель к хорошо
+            калиброванным вероятностям.
+          </p>
+          <p>
+            <strong>Categorical Cross-Entropy</strong> — обобщение на $K$ классов, используется
+            с Softmax-выходом. На практике в PyTorch применяют <code>nn.CrossEntropyLoss</code>,
+            которая объединяет LogSoftmax и NLLLoss — это численно устойчивее, чем отдельный
+            Softmax + BCE.
+          </p>
+          <p>
+            <strong>KL-Divergence</strong> (расстояние Кульбака–Лейблера) — асимметричная мера
+            «расстояния» между двумя вероятностными распределениями. Широко используется в VAE
+            (вариационных автоэнкодерах) как регуляризационный член, в дистилляции знаний
+            (knowledge distillation) и в RLHF (обучение с подкреплением по человеческой обратной
+            связи). $D_\text{KL}(P \| Q) = 0$ тогда и только тогда, когда $P = Q$ почти всюду.
+          </p>
+          <p>
+            <strong>Связь CE и KL:</strong> кросс-энтропия между распределением истинных меток $P$
+            и предсказаний модели $Q$ есть энтропия $P$ плюс KL-дивергенция:
+            $H(P, Q) = H(P) + D_\text{KL}(P \| Q)$. Поскольку $H(P)$ не зависит от параметров
+            модели, минимизация CE эквивалентна минимизации $D_\text{KL}(P \| Q)$.
+          </p>
+
+          <h3>Формулы</h3>
+          <p>MSE для выборки из $m$ примеров, где $y^{(i)}$ — истинное значение, $\hat{y}^{(i)}$ — предсказание:</p>
+          $$\mathcal{L}_\text{MSE} = \frac{1}{m}\sum_{i=1}^{m}\left(\hat{y}^{(i)} - y^{(i)}\right)^2$$
+          <p>Binary Cross-Entropy ($y^{(i)} \in \{0, 1\}$, $\hat{y}^{(i)} \in (0,1)$):</p>
+          $$\mathcal{L}_\text{BCE} = -\frac{1}{m}\sum_{i=1}^{m}\left[y^{(i)}\log\hat{y}^{(i)} + (1 - y^{(i)})\log(1 - \hat{y}^{(i)})\right]$$
+          <p>Categorical Cross-Entropy ($K$ классов, $y^{(i)}_k \in \{0,1\}$ — one-hot, $\hat{y}^{(i)}_k$ — предсказанная вероятность):</p>
+          $$\mathcal{L}_\text{CE} = -\frac{1}{m}\sum_{i=1}^{m}\sum_{k=1}^{K} y^{(i)}_k \log \hat{y}^{(i)}_k$$
+          <p>KL-Divergence между дискретными распределениями $P$ и $Q$:</p>
+          $$D_\text{KL}(P \| Q) = \sum_{x} P(x)\,\log\frac{P(x)}{Q(x)}$$
+          <p>Для непрерывных распределений (например, в VAE):</p>
+          $$D_\text{KL}(P \| Q) = \int_{-\infty}^{+\infty} p(x)\,\log\frac{p(x)}{q(x)}\,dx$$
+          <p>Частный случай для VAE: KL между $\mathcal{N}(\mu, \sigma^2)$ и $\mathcal{N}(0, 1)$:</p>
+          $$D_\text{KL}\!\left(\mathcal{N}(\mu, \sigma^2) \| \mathcal{N}(0,1)\right) = -\frac{1}{2}\left(1 + \log\sigma^2 - \mu^2 - \sigma^2\right)$$
+
+          <h3>Мануалы и материалы</h3>
+          <ul>
+            <li>
+              <a href="https://pytorch.org/docs/stable/nn.html#loss-functions" target="_blank" rel="noopener">
+                PyTorch Docs: Loss Functions</a>
+              — полный справочник всех функций потерь (MSELoss, BCELoss, CrossEntropyLoss, KLDivLoss и др.).
+            </li>
+            <li>
+              <a href="https://www.deeplearningbook.org/contents/ml.html" target="_blank" rel="noopener">
+                Deep Learning Book: Chapter 5 — Machine Learning Basics</a>
+              — вывод MSE и CE из принципа максимального правдоподобия.
+            </li>
+            <li>
+              <a href="https://cs231n.github.io/linear-classify/#softmax" target="_blank" rel="noopener">
+                CS231n: Softmax Classifier</a>
+              — объяснение кросс-энтропии и связи с Softmax для многоклассовой классификации.
+            </li>
+            <li>
+              <a href="https://www.countbayesie.com/blog/2017/5/9/kullback-leibler-divergence-explained"
+                 target="_blank" rel="noopener">
+                Count Bayesie: KL Divergence Explained</a>
+              — интуитивное объяснение KL-дивергенции с примерами на Python.
+            </li>
+            <li>
+              <a href="https://distill.pub/2017/ctc/" target="_blank" rel="noopener">
+                Distill.pub: Sequence Modeling with CTC</a>
+              — пример нестандартной функции потерь (CTC Loss) для задач последовательностей.
+            </li>
+            <li>
+              <a href="https://arxiv.org/abs/1312.6114" target="_blank" rel="noopener">
+                Kingma &amp; Welling, «Auto-Encoding Variational Bayes» (VAE), 2013</a>
+              — оригинальная статья VAE, где ELBO = CE + KL — мастрид по применению KL-дивергенции.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header">5. Градиентный спуск и оптимизаторы (SGD, Momentum, RMSProp, Adam, AdamW)</button>
+        <div class="accordion-body">
+          <h3>Теория</h3>
+          <p>
+            Обучение нейросети сводится к задаче минимизации функции потерь $\mathcal{L}(\boldsymbol{\theta})$
+            по параметрам $\boldsymbol{\theta}$. Аналитическое решение обычно недоступно, поэтому
+            применяются итерационные методы на основе градиентного спуска.
+          </p>
+          <p>
+            <strong>Batch Gradient Descent (BGD)</strong> вычисляет градиент по всей выборке — точно,
+            но крайне медленно при больших датасетах. <strong>Stochastic Gradient Descent (SGD)</strong>
+            обновляет параметры по градиенту, вычисленному на одном примере, — быстро, но шумно.
+            <strong>Mini-batch SGD</strong> — компромисс: градиент по батчу из $B$ примеров ($B \approx
+            32\text{–}256$). На практике «SGD» почти всегда подразумевает mini-batch SGD.
+          </p>
+          <p>
+            <strong>Momentum</strong> добавляет «инерцию» к обновлению весов: накапливается
+            экспоненциально скользящее среднее градиентов. Это помогает проходить «плоские» участки
+            loss-landscape и подавляет осцилляции вдоль крутых направлений.
+          </p>
+          <p>
+            <strong>RMSProp</strong> вместо накопления суммы квадратов градиентов (AdaGrad, страдающий
+            от монотонно убывающего шага) поддерживает экспоненциально скользящее среднее их квадратов.
+            Это стабилизирует обучение рекуррентных сетей.
+          </p>
+          <p>
+            <strong>Adam</strong> (Adaptive Moment Estimation) объединяет идеи Momentum (первый момент)
+            и RMSProp (второй момент), при этом корректирует смещение инициализации
+            (bias correction). Сегодня Adam — стандартный выбор для большинства задач DL.
+          </p>
+          <p>
+            <strong>AdamW</strong> исправляет важную проблему Adam: в оригинальном Adam L2-регуляризация
+            (weight decay) некорректно смешивается с адаптивным шагом. AdamW выносит weight decay
+            за пределы адаптивного обновления, что приводит к лучшей регуляризации. AdamW —
+            стандартный оптимизатор для обучения трансформеров (BERT, GPT и др.).
+          </p>
+          <p><strong>Практические советы:</strong></p>
+          <ul>
+            <li>Learning rate — самый важный гиперпараметр. Слишком большой: расходимость. Слишком
+              малый: медленная сходимость.</li>
+            <li>Используйте learning rate scheduling: cosine annealing, linear warmup + decay.</li>
+            <li>Для CV-задач: SGD + Momentum часто конкурирует с Adam при правильном lr-расписании.</li>
+            <li>Для NLP и трансформеров: AdamW + warmup — индустриальный стандарт.</li>
+            <li>Gradient clipping (обрезка градиентов) обязательна для RNN и трансформеров.</li>
+          </ul>
+
+          <h3>Формулы</h3>
+          <p>SGD (mini-batch, шаг $t$, батч $\mathcal{B}$, скорость обучения $\eta$):</p>
+          $$\boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}_t - \eta\,\frac{1}{|\mathcal{B}|}\sum_{i \in \mathcal{B}} \nabla_{\boldsymbol{\theta}}\,\mathcal{L}^{(i)}(\boldsymbol{\theta}_t)$$
+          <p>SGD с Momentum (коэффициент инерции $\beta \approx 0.9$, $\mathbf{v}_0 = \mathbf{0}$):</p>
+          $$\mathbf{v}_{t+1} = \beta\,\mathbf{v}_t + (1-\beta)\,\mathbf{g}_t, \qquad \boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}_t - \eta\,\mathbf{v}_{t+1}$$
+          <p>
+            где $\mathbf{g}_t = \nabla_{\boldsymbol{\theta}}\,\mathcal{L}(\boldsymbol{\theta}_t)$ — градиент на шаге $t$.
+          </p>
+          <p>RMSProp ($\beta_2 \approx 0.999$, $\varepsilon \approx 10^{-8}$):</p>
+          $$\mathbf{s}_{t+1} = \beta_2\,\mathbf{s}_t + (1-\beta_2)\,\mathbf{g}_t^2, \qquad \boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}_t - \frac{\eta}{\sqrt{\mathbf{s}_{t+1}} + \varepsilon}\,\mathbf{g}_t$$
+          <p>Adam (оба момента + bias correction; $\beta_1 \approx 0.9$, $\beta_2 \approx 0.999$):</p>
+          $$\mathbf{m}_{t+1} = \beta_1 \mathbf{m}_t + (1-\beta_1)\mathbf{g}_t$$
+          $$\mathbf{v}_{t+1} = \beta_2 \mathbf{v}_t + (1-\beta_2)\mathbf{g}_t^2$$
+          $$\hat{\mathbf{m}}_{t+1} = \frac{\mathbf{m}_{t+1}}{1 - \beta_1^{t+1}}, \quad \hat{\mathbf{v}}_{t+1} = \frac{\mathbf{v}_{t+1}}{1 - \beta_2^{t+1}}$$
+          $$\boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}_t - \frac{\eta}{\sqrt{\hat{\mathbf{v}}_{t+1}} + \varepsilon}\,\hat{\mathbf{m}}_{t+1}$$
+          <p>AdamW — Adam с отдельным weight decay $\lambda$ (не включённым в градиент):</p>
+          $$\boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}_t - \frac{\eta}{\sqrt{\hat{\mathbf{v}}_{t+1}} + \varepsilon}\,\hat{\mathbf{m}}_{t+1} - \eta\,\lambda\,\boldsymbol{\theta}_t$$
+
+          <h3>Мануалы и материалы</h3>
+          <ul>
+            <li>
+              <a href="https://www.ruder.io/optimizing-gradient-descent/" target="_blank" rel="noopener">
+                Sebastian Ruder: An Overview of Gradient Descent Optimization Algorithms</a>
+              — лучший обзорный пост: все оптимизаторы с формулами, сравнением и рекомендациями.
+            </li>
+            <li>
+              <a href="https://arxiv.org/abs/1412.6980" target="_blank" rel="noopener">
+                Kingma &amp; Ba, «Adam: A Method for Stochastic Optimization», 2014</a>
+              — оригинальная статья Adam, одна из самых цитируемых в DL.
+            </li>
+            <li>
+              <a href="https://arxiv.org/abs/1711.05101" target="_blank" rel="noopener">
+                Loshchilov &amp; Hutter, «Decoupled Weight Decay Regularization» (AdamW), 2017</a>
+              — статья, показывающая проблему Adam и предлагающая AdamW.
+            </li>
+            <li>
+              <a href="https://cs231n.github.io/neural-networks-3/#update" target="_blank" rel="noopener">
+                CS231n: Parameter Updates — SGD, Momentum, RMSProp, Adam</a>
+              — конспект с интуицией и псевдокодом всех основных оптимизаторов.
+            </li>
+            <li>
+              <a href="https://pytorch.org/docs/stable/optim.html" target="_blank" rel="noopener">
+                PyTorch Docs: torch.optim</a>
+              — официальная документация: все оптимизаторы, schedulers, gradient clipping.
+            </li>
+            <li>
+              <a href="https://www.deeplearningbook.org/contents/optimization.html"
+                 target="_blank" rel="noopener">
+                Deep Learning Book: Chapter 8 — Optimization for Training Deep Models</a>
+              — теоретическое изложение: loss landscape, проблемы оптимизации в DL, оптимизаторы.
+            </li>
+          </ul>
+        </div>
+      </div>
+
     </section>
   </main>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
