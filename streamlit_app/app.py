@@ -28,6 +28,31 @@ logistic_regression = st.Page(
     title="5. Логистическая регрессия",
     icon="🔀",
 )
+classification_metrics = st.Page(
+    "topics/classification_metrics.py",
+    title="6. Метрики качества классификации",
+    icon="🎯",
+)
+gradient_descent = st.Page(
+    "topics/gradient_descent.py",
+    title="7. Градиентный спуск",
+    icon="🏔️",
+)
+regularization = st.Page(
+    "topics/regularization.py",
+    title="8. Регуляризация (L1/L2/ElasticNet)",
+    icon="🪢",
+)
+cross_validation = st.Page(
+    "topics/cross_validation.py",
+    title="9. Кросс-валидация и гиперпараметры",
+    icon="🧩",
+)
+decision_trees = st.Page(
+    "topics/decision_trees.py",
+    title="10. Деревья решений",
+    icon="🌳",
+)
 hypothesis_testing = st.Page(
     "topics/hypothesis_testing.py",
     title="6. Проверка статистических гипотез",
@@ -168,6 +193,11 @@ pg = st.navigation(
             regression_metrics,
             bias_variance,
             logistic_regression,
+            classification_metrics,
+            gradient_descent,
+            regularization,
+            cross_validation,
+            decision_trees,
         ],
         "1.1 Deep Learning": [
             dl_mlp,
