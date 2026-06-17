@@ -83,6 +83,31 @@ multi_armed_bandits = st.Page(
     title="16. Многорукие бандиты",
     icon="🎰",
 )
+dp_north_star = st.Page(
+    "topics/north_star_aarrr_okr.py",
+    title="1. North Star Metric, AARRR и OKR",
+    icon="⭐",
+)
+dp_funnel_analytics = st.Page(
+    "topics/funnel_analytics.py",
+    title="2. Продуктовая аналитика: события, воронки, сегментация",
+    icon="🔻",
+)
+dp_ab_test_hypothesis = st.Page(
+    "topics/ab_test_hypothesis.py",
+    title="3. A/B-тестирование: дизайн и гипотезы",
+    icon="🧪",
+)
+dp_significance_power = st.Page(
+    "topics/significance_power_sample_size.py",
+    title="4. Значимость, p-value, мощность и размер выборки",
+    icon="📐",
+)
+dp_retention_cohort = st.Page(
+    "topics/retention_cohort.py",
+    title="5. Retention, churn и cohort-анализ",
+    icon="📅",
+)
 hypothesis_testing = st.Page(
     "topics/hypothesis_testing.py",
     title="6. Проверка статистических гипотез",
@@ -279,6 +304,13 @@ pg = st.navigation(
             experiment_tracking,
             containerization,
             git_github,
+        ],
+        "3. Data Product": [
+            dp_north_star,
+            dp_funnel_analytics,
+            dp_ab_test_hypothesis,
+            dp_significance_power,
+            dp_retention_cohort,
         ],
         "5. Дизайн экспериментов": [
             hypothesis_testing,
