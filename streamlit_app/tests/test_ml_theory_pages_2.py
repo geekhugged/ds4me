@@ -1,7 +1,7 @@
 """Smoke tests for the second batch of new ML theory topic pages using
 streamlit.testing.v1.AppTest.
 
-Covers: ensembles, svm, naive_bayes, mle, clustering.
+Covers: ensembles, svm, naive_bayes, mle, clustering, multi_armed_bandits.
 
 Run with: pytest streamlit_app/tests/test_ml_theory_pages_2.py
 """
@@ -213,3 +213,31 @@ def test_clustering_dbscan_params():
         assert not at.exception
         at.slider[2].set_value(10).run(timeout=60)
         assert not at.exception
+
+
+def test_multi_armed_bandits_loads():
+    """Multi-armed bandits page renders without exceptions."""
+    at = AppTest.from_file(str(TOPICS_DIR / "multi_armed_bandits.py"))
+    at.run(timeout=60)
+    assert not at.exception
+
+
+def test_multi_armed_bandits_run_comparison():
+    """Clicking the comparison button runs all three strategies."""
+    at = AppTest.from_file(str(TOPICS_DIR / "multi_armed_bandits.py"))
+    at.run(timeout=60)
+    assert not at.exception
+    at.button[0].click().run(timeout=60)
+    assert not at.exception
+
+
+def test_multi_armed_bandits_sliders():
+    """Changing number of arms and epsilon sliders works."""
+    at = AppTest.from_file(str(TOPICS_DIR / "multi_armed_bandits.py"))
+    at.run(timeout=60)
+    assert not at.exception
+    assert len(at.slider) >= 4
+    at.slider[0].set_value(8).run(timeout=60)
+    assert not at.exception
+    at.slider[2].set_value(0.5).run(timeout=60)
+    assert not at.exception

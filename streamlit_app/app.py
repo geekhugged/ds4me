@@ -78,6 +78,11 @@ clustering = st.Page(
     title="15. Кластеризация (k-means, DBSCAN)",
     icon="🧬",
 )
+multi_armed_bandits = st.Page(
+    "topics/multi_armed_bandits.py",
+    title="16. Многорукие бандиты",
+    icon="🎰",
+)
 hypothesis_testing = st.Page(
     "topics/hypothesis_testing.py",
     title="6. Проверка статистических гипотез",
@@ -253,6 +258,7 @@ pg = st.navigation(
             naive_bayes,
             mle,
             clustering,
+            multi_armed_bandits,
         ],
         "1.1 Deep Learning": [
             dl_mlp,
