@@ -241,3 +241,37 @@ def test_multi_armed_bandits_sliders():
     assert not at.exception
     at.slider[2].set_value(0.5).run(timeout=60)
     assert not at.exception
+
+
+def test_courier_pricing_bandit_loads():
+    """Courier pricing bandit use-case page renders without exceptions."""
+    at = AppTest.from_file(str(TOPICS_DIR / "courier_pricing_bandit.py"))
+    at.run(timeout=60)
+    assert not at.exception
+
+
+def test_courier_pricing_bandit_sliders():
+    """Changing environment param sliders re-renders without error."""
+    at = AppTest.from_file(str(TOPICS_DIR / "courier_pricing_bandit.py"))
+    at.run(timeout=60)
+    assert not at.exception
+    assert len(at.slider) >= 10
+    at.slider[0].set_value(7).run(timeout=60)
+    assert not at.exception
+    at.slider[3].set_value(50).run(timeout=60)
+    assert not at.exception
+
+
+def test_courier_pricing_bandit_run_simulation():
+    """Clicking the simulation button runs all three strategies end-to-end."""
+    at = AppTest.from_file(str(TOPICS_DIR / "courier_pricing_bandit.py"))
+    at.run(timeout=60)
+    assert not at.exception
+    # use a small n_rounds to keep the test fast: slider order is
+    # n_buckets(0), n_arms(1), n_rounds(2), r_min(3), r_max(4), gamma(5),
+    # temperature(6), epsilon(7), seed(8), value_per_order(9), base_price(10),
+    # reject_penalty(11), sigma_obs(12)
+    at.slider[2].set_value(200).run(timeout=60)
+    assert not at.exception
+    at.button[0].click().run(timeout=120)
+    assert not at.exception

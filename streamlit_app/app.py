@@ -83,6 +83,11 @@ multi_armed_bandits = st.Page(
     title="16. Многорукие бандиты",
     icon="🎰",
 )
+courier_pricing_bandit = st.Page(
+    "topics/courier_pricing_bandit.py",
+    title="16. Бандиты: кейс — цена за доставку",
+    icon="🛵",
+)
 dp_north_star = st.Page(
     "topics/north_star_aarrr_okr.py",
     title="1. North Star Metric, AARRR и OKR",
@@ -284,6 +289,7 @@ pg = st.navigation(
             mle,
             clustering,
             multi_armed_bandits,
+            courier_pricing_bandit,
         ],
         "1.1 Deep Learning": [
             dl_mlp,
