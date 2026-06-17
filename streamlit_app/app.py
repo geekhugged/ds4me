@@ -53,6 +53,31 @@ decision_trees = st.Page(
     title="10. Деревья решений",
     icon="🌳",
 )
+ensembles = st.Page(
+    "topics/ensembles.py",
+    title="11. Ансамбли (Bagging, RF, Boosting)",
+    icon="🌲",
+)
+svm = st.Page(
+    "topics/svm.py",
+    title="12. SVM и kernel trick",
+    icon="➗",
+)
+naive_bayes = st.Page(
+    "topics/naive_bayes.py",
+    title="13. Наивный Байес и теорема Байеса",
+    icon="🎲",
+)
+mle = st.Page(
+    "topics/mle.py",
+    title="14. Метод максимального правдоподобия",
+    icon="📊",
+)
+clustering = st.Page(
+    "topics/clustering.py",
+    title="15. Кластеризация (k-means, DBSCAN)",
+    icon="🧬",
+)
 hypothesis_testing = st.Page(
     "topics/hypothesis_testing.py",
     title="6. Проверка статистических гипотез",
@@ -198,6 +223,11 @@ pg = st.navigation(
             regularization,
             cross_validation,
             decision_trees,
+            ensembles,
+            svm,
+            naive_bayes,
+            mle,
+            clustering,
         ],
         "1.1 Deep Learning": [
             dl_mlp,
