@@ -128,6 +128,31 @@ dl_optimizers = st.Page(
     title="5. Оптимизаторы",
     icon="🚀",
 )
+dl_weight_init = st.Page(
+    "topics/weight_initialization.py",
+    title="6. Инициализация весов (Xavier/He)",
+    icon="🎯",
+)
+dl_regularization = st.Page(
+    "topics/dl_regularization.py",
+    title="7. Регуляризация в DL",
+    icon="🧯",
+)
+dl_vanishing_gradients = st.Page(
+    "topics/vanishing_gradients_resnet.py",
+    title="8. Vanishing/exploding gradients и ResNet",
+    icon="🪜",
+)
+dl_cnn = st.Page(
+    "topics/cnn_basics.py",
+    title="9. CNN: свёртки, пулинг, рецептивное поле",
+    icon="🖼️",
+)
+dl_rnn = st.Page(
+    "topics/rnn_lstm_gru.py",
+    title="10. RNN, LSTM, GRU",
+    icon="🔁",
+)
 ml_lifecycle = st.Page(
     "topics/ml_lifecycle.py",
     title="1. Жизненный цикл ML-проекта",
@@ -235,6 +260,11 @@ pg = st.navigation(
             dl_backprop,
             dl_losses,
             dl_optimizers,
+            dl_weight_init,
+            dl_regularization,
+            dl_vanishing_gradients,
+            dl_cnn,
+            dl_rnn,
         ],
         "2. MLOps": [
             ml_lifecycle,
