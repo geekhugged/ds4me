@@ -64,3 +64,29 @@ def test_git_github():
             b.click().run(timeout=60)
             break
     assert not at.exception
+
+
+def test_cli_basics():
+    at = AppTest.from_file(str(TOPICS_DIR / "cli_basics.py"))
+    at.run()
+    assert not at.exception
+
+    # выбрать команду и выполнить её через безопасный whitelist
+    assert len(at.selectbox) > 0
+    at.selectbox[0].set_value(at.selectbox[0].options[0]).run(timeout=60)
+    assert not at.exception
+    for b in at.button:
+        if b.label == "Выполнить команду":
+            b.click().run(timeout=60)
+            break
+    assert not at.exception
+
+    # ввести ответ в тренажёре и проверить его
+    if len(at.text_input) > 0:
+        at.text_input[0].set_value("pwd").run(timeout=60)
+        assert not at.exception
+    for b in at.button:
+        if b.label == "Проверить":
+            b.click().run(timeout=60)
+            break
+    assert not at.exception

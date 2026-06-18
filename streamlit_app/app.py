@@ -218,6 +218,11 @@ git_github = st.Page(
     title="6. Git и GitHub",
     icon="🔧",
 )
+cli_basics = st.Page(
+    "topics/cli_basics.py",
+    title="7. Командная строка (Linux/Unix)",
+    icon="💻",
+)
 leetcode_two_sum = st.Page(
     "topics/leetcode_two_sum.py",
     title="Two Sum",
@@ -310,6 +315,7 @@ pg = st.navigation(
             experiment_tracking,
             containerization,
             git_github,
+            cli_basics,
         ],
         "3. Data Product": [
             dp_north_star,
