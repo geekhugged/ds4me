@@ -88,6 +88,26 @@ courier_pricing_bandit = st.Page(
     title="16. Бандиты: кейс — цена за доставку",
     icon="🛵",
 )
+dimensionality_reduction = st.Page(
+    "topics/dimensionality_reduction.py",
+    title="17. Снижение размерности",
+    icon="🗜️",
+)
+feature_engineering = st.Page(
+    "topics/feature_engineering.py",
+    title="18. Feature engineering",
+    icon="🛠️",
+)
+imbalanced_data = st.Page(
+    "topics/imbalanced_data.py",
+    title="19. Несбалансированные данные",
+    icon="⚖️",
+)
+statistical_significance = st.Page(
+    "topics/statistical_significance.py",
+    title="20. Статистическая значимость, p-value, CI",
+    icon="🔬",
+)
 dp_north_star = st.Page(
     "topics/north_star_aarrr_okr.py",
     title="1. North Star Metric, AARRR и OKR",
@@ -295,6 +315,10 @@ pg = st.navigation(
             clustering,
             multi_armed_bandits,
             courier_pricing_bandit,
+            dimensionality_reduction,
+            feature_engineering,
+            imbalanced_data,
+            statistical_significance,
         ],
         "1.1 Deep Learning": [
             dl_mlp,
